@@ -6,7 +6,7 @@ import {
 } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import {
   ErrorComponent,
   notificationProvider,
@@ -34,6 +34,7 @@ import {
   BlogPostList,
   BlogPostShow,
 } from "./pages/blog-posts";
+import blog from "./pages/blog-posts/blog";
 import {
   CategoryCreate,
   CategoryEdit,
@@ -42,6 +43,14 @@ import {
 } from "./pages/categories";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
+
+import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
+import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
+import NotificationsNoneTwoToneIcon from '@mui/icons-material/NotificationsNoneTwoTone';
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
+import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
+import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
+
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -52,6 +61,19 @@ axiosInstance.interceptors.request.use((config) => {
 
   return config;
 });
+
+import { Create } from "@refinedev/mui";
+import { Typography } from "@mui/material";
+
+const CreatePage: React.FC = () => {
+  return (
+    <Create
+      title={<Typography variant="h5">Custom Title</Typography>}
+    >
+      <span>Rest of your page here</span>
+    </Create>
+  );
+};
 
 function App() {
   const authProvider: AuthBindings = {
@@ -145,23 +167,62 @@ function App() {
                 authProvider={authProvider}
                 resources={[
                   {
-                    name: "blog_posts",
+                    name: "Dashboards",
                     list: "/blog-posts",
                     create: "/blog-posts/create",
                     edit: "/blog-posts/edit/:id",
                     show: "/blog-posts/show/:id",
                     meta: {
                       canDelete: true,
+                      icon:<DashboardTwoToneIcon/>
                     },
                   },
                   {
-                    name: "categories",
+                    name: "Upload",
                     list: "/categories",
-                    create: "/categories/create",
-                    edit: "/categories/edit/:id",
-                    show: "/categories/show/:id",
                     meta: {
                       canDelete: true,
+                      icon:<UploadFileIcon/>
+                    },
+                  },
+                  {
+                    name: "Invoice",
+                    list: "/categories",
+                    meta: {
+                      canDelete: true,
+                      icon:<AssignmentTwoToneIcon/>
+                    },
+                  },
+                  {
+                    name: "Schedule",
+                    list: "/categories",
+                    meta: {
+                      canDelete: true,
+                      icon:<DescriptionTwoToneIcon/>
+                    },
+                  },
+                  {
+                    name: "Calender",
+                    list: "/categories",
+                    meta: {
+                      canDelete: true,
+                      icon:<CalendarMonthTwoToneIcon/>
+                    },
+                  },
+                  {
+                    name: "Notification",
+                    list: "/categories",
+                    meta: {
+                      canDelete: true,
+                      icon:<NotificationsNoneTwoToneIcon/>
+                    },
+                  },
+                  {
+                    name: "Settings",
+                    list: "/categories",
+                    meta: {
+                      canDelete: true,
+                      icon:<SettingsTwoToneIcon/>
                     },
                   },
                 ]}
@@ -189,17 +250,17 @@ function App() {
                       index
                       element={<NavigateToResource resource="blog_posts" />}
                     />
-                    <Route path="/blog-posts">
-                      <Route index element={<BlogPostList />} />
+                    <Route path="/src/pages/blog-posts/blog.tsx">
+                      {/* <Route index element={<BlogPostList />} />
                       <Route path="create" element={<BlogPostCreate />} />
                       <Route path="edit/:id" element={<BlogPostEdit />} />
-                      <Route path="show/:id" element={<BlogPostShow />} />
+                      <Route path="show/:id" element={<BlogPostShow />} /> */}
                     </Route>
                     <Route path="/categories">
-                      <Route index element={<CategoryList />} />
+                      {/* <Route index element={<CategoryList />} />
                       <Route path="create" element={<CategoryCreate />} />
                       <Route path="edit/:id" element={<CategoryEdit />} />
-                      <Route path="show/:id" element={<CategoryShow />} />
+                      <Route path="show/:id" element={<CategoryShow />} /> */}
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>

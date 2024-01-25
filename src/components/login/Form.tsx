@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { CredentialResponse } from "../../interfaces/google";
 
 const GOOGLE_CLIENT_ID =
-  "1041339102270-e1fpe2b6v6u1didfndh7jkjmpcashs4f.apps.googleusercontent.com";
+  "506056746201-lnkfldgu8n7nksdrnr2krprdea2drpml.apps.googleusercontent.com";
 
 export const Form: React.FC = () => {
   const { mutate: login } = useLogin<CredentialResponse>();
