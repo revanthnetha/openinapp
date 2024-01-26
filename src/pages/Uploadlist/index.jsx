@@ -11,8 +11,6 @@ import {
   MenuItem,
   Select,
   Chip,
-  Theme,
-  SelectChangeEvent,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -41,7 +39,7 @@ const names = [
   'Finance',
 ];
 
-function getStyles(name: string, personName: string | any[], theme: Theme) {
+function getStyles(name, personName, theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -59,7 +57,7 @@ export const Uploadlist = () => {
 
   const fileReader = new FileReader();
 
-  const handleOnChange = (e: { target: { files: React.SetStateAction<undefined>[]; }; }) => {
+  const handleOnChange = (e) => {
     setFile(e.target.files[0]);
   };
 
@@ -67,9 +65,9 @@ export const Uploadlist = () => {
     const csvHeader = string.slice(0, string.indexOf('\n')).split(',');
     const csvRows = string.slice(string.indexOf('\n') + 1).split('\n');
 
-    const array = csvRows.map((i: string) => {
+    const array = csvRows.map((i) => {
       const values = i.split(',');
-      const obj = csvHeader.reduce((object: { [x: string]: string; }, header: string | number, index: string | number) => {
+      const obj = csvHeader.reduce((object, header, index) => {
         object[header] = values[index];
         return object;
       }, {});
@@ -78,7 +76,7 @@ export const Uploadlist = () => {
     setArray(array);
   };
 
-  const handleOnSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
 
     if (file) {
@@ -92,7 +90,7 @@ export const Uploadlist = () => {
     }
   };
 
-  const handleChangepop = (event: SelectChangeEvent<never>, rowIndex: number) => {
+  const handleChangepop = (event, rowIndex) => {
     const {
       target: { value },
     } = event;
@@ -146,25 +144,25 @@ export const Uploadlist = () => {
           {fileUploaded ? (
             <span style={{ fontWeight: "bold", color: "#605BFF" }}> {file.name}</span>
           ) : (
-          <form style={{ display: 'flex', flexDirection: 'column' }}>
-            <Link
-              style={{ display: 'flex', textTransform: 'none', cursor: "pointer" }}
-              onClick={() => document.getElementById('csvFileInput')?.click()}
-              underline="none"
-            >
-              <Link style={{ display: 'flex', textTransform: 'none', cursor: "pointer" }}  underline="none" color={'#605BFF'}>
-                browse
+            <form style={{ display: 'flex', flexDirection: 'column' }}>
+              <Link
+                style={{ display: 'flex', textTransform: 'none', cursor: "pointer" }}
+                onClick={() => document.getElementById('csvFileInput')?.click()}
+                underline="none"
+              >
+                <Link style={{ display: 'flex', textTransform: 'none', cursor: "pointer" }}  underline="none" color={'#605BFF'}>
+                  browse
+                </Link>
+                <Input
+                  type={'file'}
+                  id={'csvFileInput'}
+                  accept={'.csv'}
+                  onChange={handleOnChange}
+                  style={{ display: 'none' }}
+                />
               </Link>
-              <Input
-                type={'file'}
-                id={'csvFileInput'}
-                accept={'.csv'}
-                onChange={handleOnChange}
-                style={{ display: 'none' }}
-              />
-            </Link>
-          </form>
-           )}
+            </form>
+          )}
         </Box>
         <Box
           alignSelf={'center'}
@@ -188,7 +186,6 @@ export const Uploadlist = () => {
               onClick={(e) => {
                 handleOnSubmit(e);
               }}
-              
             >
               <img
                 src="https://res.cloudinary.com/dvcksw7qc/image/upload/v1706264438/Openinapp/Icon_wpqnnh.png"
@@ -245,7 +242,7 @@ export const Uploadlist = () => {
                       renderValue={(selected) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                           {Array.isArray(selected) ? (
-                            selected.map((value: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.Key | null | undefined) => (
+                            selected.map((value) => (
                               <Chip key={value} label={value} />
                             ))
                           ) : (
@@ -269,7 +266,7 @@ export const Uploadlist = () => {
                 </td>
                 <td style={{ maxWidth: '100px' }}>
                   {personName[rowIndex] && personName[rowIndex].length > 0 ? (
-                    personName[rowIndex].map((tag: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.Key | null | undefined) => (
+                    personName[rowIndex].map((tag) => (
                       <Chip
                         key={tag}
                         label={tag}
