@@ -24,7 +24,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
  
 
   const { data: user } = useGetIdentity<IUser>();
-
+  const { mode, setMode } = useContext(ColorModeContext);
   return (
     <AppBar position={sticky ? "sticky" : "relative"}>
       <Toolbar>
@@ -42,7 +42,14 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             alignItems="center"
           >
             
-    
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                setMode();
+              }}
+            >
+              {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
+            </IconButton>
 
             {(user?.avatar || user?.name) && (
               <Stack

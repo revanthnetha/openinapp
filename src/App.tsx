@@ -52,7 +52,7 @@ axiosInstance.interceptors.request.use((config) => {
 import { Create } from "@refinedev/mui";
 import { Typography } from "@mui/material";
 import Form from "./components/login/Form";
-import { Uploadlist } from "./pages/Uploadlist";
+import { Uploadlist } from "./pages/Uploadlist/Uploadlist";
 import { Sample } from "./pages/sample";
 
 const CreatePage: React.FC = () => {
