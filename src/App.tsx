@@ -28,19 +28,6 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
-import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from "./pages/blog-posts";
-import blog from "./pages/blog-posts/blog";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "./pages/categories";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
 
@@ -64,11 +51,15 @@ axiosInstance.interceptors.request.use((config) => {
 
 import { Create } from "@refinedev/mui";
 import { Typography } from "@mui/material";
+import Form from "./components/login/Form";
+import { Uploadlist } from "./pages/Uploadlist";
+import { Sample } from "./pages/sample";
 
 const CreatePage: React.FC = () => {
   return (
     <Create
-      title={<Typography variant="h5">Custom Title</Typography>}
+      title={<Typography variant="h5">Custom Title</Typography>
+    }
     >
       <span>Rest of your page here</span>
     </Create>
@@ -168,10 +159,7 @@ function App() {
                 resources={[
                   {
                     name: "Dashboards",
-                    list: "/blog-posts",
-                    create: "/blog-posts/create",
-                    edit: "/blog-posts/edit/:id",
-                    show: "/blog-posts/show/:id",
+                    list: "/sample",
                     meta: {
                       canDelete: true,
                       icon:<DashboardTwoToneIcon/>
@@ -179,7 +167,7 @@ function App() {
                   },
                   {
                     name: "Upload",
-                    list: "/categories",
+                    list: "/upload",
                     meta: {
                       canDelete: true,
                       icon:<UploadFileIcon/>
@@ -187,7 +175,7 @@ function App() {
                   },
                   {
                     name: "Invoice",
-                    list: "/categories",
+                    list: "/sample",
                     meta: {
                       canDelete: true,
                       icon:<AssignmentTwoToneIcon/>
@@ -195,7 +183,7 @@ function App() {
                   },
                   {
                     name: "Schedule",
-                    list: "/categories",
+                    list: "/sample",
                     meta: {
                       canDelete: true,
                       icon:<DescriptionTwoToneIcon/>
@@ -203,7 +191,7 @@ function App() {
                   },
                   {
                     name: "Calender",
-                    list: "/categories",
+                    list: "/sample",
                     meta: {
                       canDelete: true,
                       icon:<CalendarMonthTwoToneIcon/>
@@ -211,7 +199,7 @@ function App() {
                   },
                   {
                     name: "Notification",
-                    list: "/categories",
+                    list: "/sample",
                     meta: {
                       canDelete: true,
                       icon:<NotificationsNoneTwoToneIcon/>
@@ -219,7 +207,7 @@ function App() {
                   },
                   {
                     name: "Settings",
-                    list: "/categories",
+                    list: "/sample",
                     meta: {
                       canDelete: true,
                       icon:<SettingsTwoToneIcon/>
@@ -232,6 +220,7 @@ function App() {
                   useNewQueryKeys: true,
                   projectId: "lQ6Fif-yXLLtX-3uuxMW",
                 }}
+    
               >
                 <Routes>
                   <Route
@@ -240,28 +229,20 @@ function App() {
                         key="authenticated-inner"
                         fallback={<CatchAllNavigate to="/login" />}
                       >
-                        <ThemedLayoutV2 Header={() => <Header sticky />}>
+                        <ThemedLayoutV2 Header={() => <Header sticky />} Title={() => <div>
+                          <img src="https://res.cloudinary.com/dvcksw7qc/image/upload/v1706289402/Openinapp/Logo_and_company_i5x2lf.svg" alt="logo" />
+                        </div>}>
                           <Outlet />
                         </ThemedLayoutV2>
                       </Authenticated>
                     }
                   >
-                    <Route
-                      index
-                      element={<NavigateToResource resource="blog_posts" />}
-                    />
-                    <Route path="/src/pages/blog-posts/blog.tsx">
-                      {/* <Route index element={<BlogPostList />} />
-                      <Route path="create" element={<BlogPostCreate />} />
-                      <Route path="edit/:id" element={<BlogPostEdit />} />
-                      <Route path="show/:id" element={<BlogPostShow />} /> */}
-                    </Route>
-                    <Route path="/categories">
-                      {/* <Route index element={<CategoryList />} />
-                      <Route path="create" element={<CategoryCreate />} />
-                      <Route path="edit/:id" element={<CategoryEdit />} />
-                      <Route path="show/:id" element={<CategoryShow />} /> */}
-                    </Route>
+                    
+                
+                <Route path="/upload" element={<Uploadlist/>}></Route>
+                <Route path="/sample" element={<Sample/>}></Route>
+                    
+                   
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
                   <Route
@@ -280,7 +261,10 @@ function App() {
 
                 <RefineKbar />
                 <UnsavedChangesNotifier />
+                
+    
                 <DocumentTitleHandler />
+              
               </Refine>
               {/* <DevtoolsPanel /> */}
             </DevtoolsProvider>
@@ -288,6 +272,7 @@ function App() {
         </ColorModeContextProvider>
       </RefineKbarProvider>
     </BrowserRouter>
+   
   );
 }
 

@@ -41,6 +41,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             justifyContent="flex-end"
             alignItems="center"
           >
+            
     
 
             {(user?.avatar || user?.name) && (
