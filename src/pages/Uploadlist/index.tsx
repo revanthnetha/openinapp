@@ -11,6 +11,8 @@ import {
   MenuItem,
   Select,
   Chip,
+  Theme,
+  SelectChangeEvent,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -39,7 +41,7 @@ const names = [
   'Finance',
 ];
 
-function getStyles(name, personName, theme) {
+function getStyles(name: string, personName: string | any[], theme: Theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -57,7 +59,7 @@ export const Uploadlist = () => {
 
   const fileReader = new FileReader();
 
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: { target: { files: React.SetStateAction<undefined>[]; }; }) => {
     setFile(e.target.files[0]);
   };
 
@@ -65,9 +67,9 @@ export const Uploadlist = () => {
     const csvHeader = string.slice(0, string.indexOf('\n')).split(',');
     const csvRows = string.slice(string.indexOf('\n') + 1).split('\n');
 
-    const array = csvRows.map((i) => {
+    const array = csvRows.map((i: string) => {
       const values = i.split(',');
-      const obj = csvHeader.reduce((object, header, index) => {
+      const obj = csvHeader.reduce((object: { [x: string]: string; }, header: string | number, index: string | number) => {
         object[header] = values[index];
         return object;
       }, {});
@@ -76,7 +78,7 @@ export const Uploadlist = () => {
     setArray(array);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (file) {
@@ -90,7 +92,7 @@ export const Uploadlist = () => {
     }
   };
 
-  const handleChangepop = (event, rowIndex) => {
+  const handleChangepop = (event: SelectChangeEvent<never>, rowIndex: number) => {
     const {
       target: { value },
     } = event;
@@ -243,7 +245,7 @@ export const Uploadlist = () => {
                       renderValue={(selected) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                           {Array.isArray(selected) ? (
-                            selected.map((value) => (
+                            selected.map((value: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.Key | null | undefined) => (
                               <Chip key={value} label={value} />
                             ))
                           ) : (
@@ -267,7 +269,7 @@ export const Uploadlist = () => {
                 </td>
                 <td style={{ maxWidth: '100px' }}>
                   {personName[rowIndex] && personName[rowIndex].length > 0 ? (
-                    personName[rowIndex].map((tag) => (
+                    personName[rowIndex].map((tag: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.Key | null | undefined) => (
                       <Chip
                         key={tag}
                         label={tag}
